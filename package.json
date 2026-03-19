@@ -1,0 +1,83 @@
+{
+  "name": "git-history-to-excel",
+  "displayName": "Git History → Excel",
+  "description": "Track git commit history by date & time in an Excel sheet. Auto-updates on each commit, filter by date.",
+  "version": "1.0.0",
+  "publisher": "swapnillandage",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "SCM Providers"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "workspaceContains:**/.git"
+  ],
+  "main": "./out/extension.js",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#0b1726",
+    "theme": "dark"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "gitHistoryToExcel.updateAllCommits",
+        "title": "Git History: Update Excel (All Commits)"
+      },
+      {
+        "command": "gitHistoryToExcel.updateCurrentUserCommits",
+        "title": "Git History: Update Excel (Current Git User)"
+      },
+      {
+        "command": "gitHistoryToExcel.openExcel",
+        "title": "Git History: Open Excel Sheet"
+      },
+      {
+        "command": "gitHistoryToExcel.setOutputPath",
+        "title": "Git History: Set Excel Output Folder"
+      },
+      {
+        "command": "gitHistoryToExcel.filterByDate",
+        "title": "Git History: Filter by Date"
+      }
+    ],
+    "configuration": {
+      "title": "Git History to Excel",
+      "properties": {
+        "gitHistoryToExcel.outputFolder": {
+          "type": "string",
+          "default": "",
+          "description": "Folder path where the Excel file will be saved. Empty = workspace root."
+        },
+        "gitHistoryToExcel.fileName": {
+          "type": "string",
+          "default": "git-commit-history.xlsx",
+          "description": "Excel file name."
+        },
+        "gitHistoryToExcel.autoUpdateOnCommit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto-update Excel when new commits are detected."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.x",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "simple-git": "^3.22.0"
+  }
+}
